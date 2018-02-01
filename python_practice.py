@@ -67,8 +67,12 @@ def write_csv_file(files):
         with open(aFile, 'r') as f:
             reader = csv.reader(f)
             for row in reader:
+                # check to make sure row has all appropriate data
+                if len(row) != 5:
+                    break
                 outfile.write(','.join(row))
-                outfile.write('\n')
+                if row[-1][-1] != '\n':
+                    outfile.write('\n')
 
 
 #######################
