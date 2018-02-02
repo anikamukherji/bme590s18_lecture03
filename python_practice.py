@@ -1,5 +1,7 @@
 import csv
 
+MAX_DATA_ENTRIES = 5
+
 def main():
     files = return_all_csv(".", ['mlp6'])
     write_data(files, file_type='csv')
@@ -47,7 +49,7 @@ def write_json_files(files):
             dict_reader = csv.DictReader(csv_file, fields)
             for row in dict_reader:
                 # check to make sure row has all appropriate data
-                if len(row) != 5:
+                if len(row) != MAX_DATA_ENTRIES:
                     break
                 net_id = row["net_id"].strip()
                 json_file = open("./{}.json".format(net_id), 'w')
@@ -68,11 +70,10 @@ def write_csv_file(files):
             reader = csv.reader(f)
             for row in reader:
                 # check to make sure row has all appropriate data
-                if len(row) != 5:
+                if len(row) != MAX_DATA_ENTRIES:
                     break
                 outfile.write(','.join(row))
-                if row[-1][-1] != '\n':
-                    outfile.write('\n')
+                outfile.write('\n')
 
 
 #######################
@@ -109,7 +110,7 @@ def camel_case_count():
         reader = csv.reader(f)
         for row in reader:
             # check to make sure row has appropriate data
-            if len(row) != 5:
+            if len(row) != MAX_DATA_ENTRIES:
                 continue
             team_name = row[-1].strip()
             if contains_space(team_name):
@@ -131,7 +132,7 @@ def check_spaces_all_teamnames():
         reader = csv.reader(f)
         for row in reader:
             # check to make sure row has appropriate data
-            if len(row) != 5:
+            if len(row) != MAX_DATA_ENTRIES:
                 continue
             team_name = row[-1].strip()
             if contains_space(team_name):
